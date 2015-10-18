@@ -34,3 +34,12 @@ node_types:
       cloudify.interfaces.validation:
         creation:
           implementation: cloudify_vultr.instance.creation_validation
+      cloudify.interfaces.lifecycle:
+        create:
+          implementation: cloudify_vultr.instance.run_instances
+        start:
+          implementation: cloudify_vultr.instance.start
+        stop:
+          implementation: cloudify_vultr.instance.stop
+        delete:
+          implementation: cloudify_vultr.instance.terminate

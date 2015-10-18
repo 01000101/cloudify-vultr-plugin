@@ -7,6 +7,8 @@ from vultr import Vultr
 
 @operation
 def creation_validation(**_):
+    ctx.logger.info('cloudify_vultr.creation_validation()')
+    
     API_KEY = environ.get(constants.VULTR_API_KEY_ENV_VAR)
     vultr = Vultr(API_KEY)
     
@@ -14,7 +16,9 @@ def creation_validation(**_):
     
     # Get the Vultr SUBID
     if ctx.node.properties['resource_id']:
+        ctx.logger.info('Resource-ID: {0}' . format(ctx.node.properties['resource_id']))
         instance = vultr.server_list(ctx.node.properties['resource_id'])
+        ctx.logger.info('Vultr instance: {0}' . format(instance))
 
     # External resource doesn't exist when it's supposed to
     if ctx.node.properties['use_external_resource'] and not instance:
@@ -49,4 +53,23 @@ def creation_validation(**_):
                 instance['location'],
             )
         )
-    
+
+@operation
+def run_instances(**_):
+    ctx.logger.info('cloudfiy_vultr.run_instances()')
+
+
+@operation
+def start(**_):
+    ctx.logger.info('cloudfiy_vultr.start()')
+
+
+@operation
+def stop(**_):
+    ctx.logger.info('cloudfiy_vultr.stop()')
+
+
+@operation
+def terminate(**_):
+    ctx.logger.info('cloudfiy_vultr.terminate()')
+
