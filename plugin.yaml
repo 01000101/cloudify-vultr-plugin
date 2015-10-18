@@ -33,4 +33,4 @@ node_types:
     interfaces:
       cloudify.interfaces.validation:
         creation:
-          implementation: vultr.instance.creation_validation
+          implementation: cloudify_vultr.instance.creation_validation
