@@ -1,0 +1,36 @@
+##################################################################################
+# Cloudify Vultr built in types and plugins definitions.
+##################################################################################
+
+plugins:
+  cloudify_vultr:
+    executor: central_deployment_agent
+    source: https://github.com/01000101/cloudify-vultr-plugin/archive/master.zip
+
+node_types:
+  cloudify.vultr.nodes.Instance:
+    derived_from: cloudify.nodes.Compute
+    properties:
+      use_external_resource:
+        description: >
+          Indicate whether the resource exists or if Cloudify should create the resource.
+        type: boolean
+        default: false
+      resource_id:
+        description: >
+          If this is an existing resource, you should provide the ID of the resource in Vultr.
+          If this a new resource, make this the name.
+        type: string
+        default: ''
+      image_id:
+        description: >
+          The ID of the image in your account.
+        type: string
+      instance_type:
+        description: >
+          The instance's size.
+        type: string
+    interfaces:
+      cloudify.interfaces.validation:
+        creation:
+          implementation: vultr.instance.creation_validation
