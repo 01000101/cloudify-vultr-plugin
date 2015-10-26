@@ -1,3 +1,5 @@
+'''Description & dependencies for the Cloudify Vultr provider plugin'''
+
 from setuptools import setup
 
 setup(
@@ -8,7 +10,7 @@ setup(
     version='1.3a7',
     description='Cloudify plugin for Vultr cloud infrastructure.',
 
-    packages=['cloudify_vultr'],
+    packages=['plugin'],
 
     license='MIT',
     install_requires=[

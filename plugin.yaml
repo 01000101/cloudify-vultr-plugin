@@ -5,41 +5,43 @@
 plugins:
   cloudify_vultr:
     executor: central_deployment_agent
-    source: https://github.com/01000101/cloudify-vultr-plugin/archive/master.zip
+    source: cloudify_vultr
 
 node_types:
   cloudify.vultr.nodes.Instance:
     derived_from: cloudify.nodes.Compute
     properties:
-      use_external_resource:
-        description: >
-          Indicate whether the resource exists or if Cloudify should create the resource.
-        type: boolean
-        default: false
-      resource_id:
-        description: >
-          If this is an existing resource, you should provide the ID of the resource in Vultr.
-          If this a new resource, make this the name.
+      SUBID:
+        description: |
+          The (existing) instance's VPS Subscription ID.
+          Refer to https://api.vultr.com/v1/server/list?api_key=[api-key] for values.
         type: string
-        default: ''
-      image_id:
-        description: >
-          The ID of the image in your account.
-        type: string
-      instance_type:
-        description: >
-          The instance's size.
-        type: string
+        default: {}
+      OSID:
+        description: |
+          The instance's Operating System ID.
+          Refer to https://api.vultr.com/v1/os/list for values.
+        type: integer
+        default: {}
+      VPSPLANID:
+        description: |
+          The instance's VPS Subscription Plan ID.
+          Refer to https://api.vultr.com/v1/plans/list for values.
+        type: integer
+        default: {}
+      DCID:
+        description: |
+          The instance's Location ID.
+          Refer to https://api.vultr.com/v1/regions/list for values.
+        type: integer
+        default: {}
+      CONFIG:
+        description: |
+          Optional configuration parameters
+        default: {}
     interfaces:
-      cloudify.interfaces.validation:
-        creation:
-          implementation: cloudify_vultr.instance.creation_validation
       cloudify.interfaces.lifecycle:
         create:
-          implementation: cloudify_vultr.instance.run_instances
-        start:
-          implementation: cloudify_vultr.instance.start
+          implementation: cloudify_vultr.plugin.instance.run_instances
         stop:
-          implementation: cloudify_vultr.instance.stop
-        delete:
-          implementation: cloudify_vultr.instance.terminate
+          implementation: cloudify_vultr.plugin.instance.stop
