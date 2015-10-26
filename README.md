@@ -1,5 +1,5 @@
-# cloudify-vultr-plugin
-A Cloudify Plugin that provisions resources in Vultr cloud
+# Cloudify - Vultr Cloud Plugin
+A Cloudify Plugin that provisions resources in Vultr cloud | https://www.vultr.com
 
 ## Vultr Weirdness
 ### Can't delete servers before 5 minutes
